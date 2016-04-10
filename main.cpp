@@ -13,6 +13,7 @@ void gotoxy(int y,int x);
 void color(int X);
 void pintar(int mat[f][c]);
 void pintar2(int mat[f][c]);
+//void fuego( int po, int pe);
 void imprimir(int mat[f][c], int u, int v);
 void jugar(int mat[f][c], int u, int v);
 
@@ -24,7 +25,7 @@ int main(int argc, char** argv) {
 	//char soundfile[] = "C:/Castle Theme - Super Mario World.waw" ; 
 	//PlaySound((LPCSTR)soundfile, NULL, SND_FILENAME | SND_ASYNC );
 
-	int matriz[f][c], u=8, v=20;
+	int matriz[f][c], u=8, v=20 ; //, po=58, pe=180;
 	
 	pintar(matriz);
 	
@@ -64,7 +65,7 @@ void pintar(int mat[f][c]){
 					{0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0},
 					{0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
 					{0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 1, 0},
-					{0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 1, 0},
+					{0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 1, 6},
 					{0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 1, 0, 0},
 					{0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 1, 0, 0},
 					{0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 1, 0, 0, 0},
@@ -159,8 +160,55 @@ void imprimir(int mat[f][c], int u, int v){
 			gotoxy(++u,v); //columna estatica porque sino el muñeco se aplasta
 		
 	}
-}
 
+}
+/*void fuego( int po, int pe){
+	
+	int poder[5][5];
+int aux2[5][5]= {{3, 3, 4, 5, 5,},
+			   {3, 4, 5, 5, 5,},
+			   {4, 4, 5, 5, 5,},
+			   {3, 4, 5, 5, 5,},
+			   {3, 3, 4, 5, 5,},
+			  };
+			
+		int i, j;
+         
+        for(i=0 ;i<5; i++)
+        {
+            for(j=0; j<5; j++)
+            {
+                 poder[i][j]=aux2[i][j];
+                
+            }
+        }
+       
+	    
+	gotoxy(po, pe);
+        
+    for(int i=0; i<5; i++)
+	{
+		//printf("\n");
+		for(int j=0; j<5;j++)
+		{
+			if(poder[i][j]==4 )
+			{
+				color(15*16+12);
+				printf("%c", 219);
+			}
+			
+			else  if(poder[i][j]==5)
+				{
+					color(15*16+14);
+					printf("%c", 219);
+				}
+			else
+			  printf(" ");
+		}
+		gotoxy(++po,pe); //columna estatica porque sino el muñeco se aplasta
+		
+	}
+}*/
 
 
 void jugar(int mat[f][c], int u, int v)
@@ -168,13 +216,16 @@ void jugar(int mat[f][c], int u, int v)
 	char tecla;
 	
 	
-	
+	//int fg=40, fo=29;
+
 
 	if(kbhit)
 	{
 	
 	while(tecla != 'x'){
 		tecla=getch();
+		
+	//	mat[fg][fo]=6;
 		
 		if(tecla== 'd' || tecla=='D')
         {
@@ -211,6 +262,12 @@ void jugar(int mat[f][c], int u, int v)
              imprimir(mat, u, v);
 
         }
+        /*if( tecla== 'l' || tecla=='L'&& mat[fg][fo]==6)
+        {
+        	
+            fuego(fg, fo);
+
+        }*/
         
         
         Sleep(120);
