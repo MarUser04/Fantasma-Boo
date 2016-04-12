@@ -13,9 +13,8 @@ void gotoxy(int y,int x);
 void color(int X);
 void pintar(int mat[f][c]);
 void pintar2(int mat[f][c]);
-//void fuego( int po, int pe);
-void imprimir(int mat[f][c], int u, int v);
-void jugar(int mat[f][c], int u, int v);
+void imprimir(int mat[f][c], int u, int v, int sent);
+void jugar(int mat[f][c], int u, int v, int sent);
 
 
 int main(int argc, char** argv) {
@@ -25,12 +24,12 @@ int main(int argc, char** argv) {
 	//char soundfile[] = "C:/Castle Theme - Super Mario World.waw" ; 
 	//PlaySound((LPCSTR)soundfile, NULL, SND_FILENAME | SND_ASYNC );
 
-	int matriz[f][c], u=8, v=20 ; //, po=58, pe=180;
+	int matriz[f][c], u=8, v=20, sent=1 ; //, po=58, pe=180;
 	
 	pintar(matriz);
 	
-	imprimir(matriz, u, v);
-	jugar(matriz, u, v);
+	imprimir(matriz, u, v, sent);
+	jugar(matriz, u,v ,  sent);
 	
 	system("pause>null");
 	return 0;
@@ -91,53 +90,16 @@ void pintar(int mat[f][c]){
 
 }
 
-void pintar2(int mat[f][c]){
-		
-				//   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19
-	int aux[f][c]={ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-					{0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0},
-					{0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-					{0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0},
-					{0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0},
-					{0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0},
-					{0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0},
-					{0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0},
-					{0, 1, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
-					{0, 1, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-					{0, 0, 1, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-					{0, 0, 1, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-					{0, 0, 0, 1, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-					{0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
-					{0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
-					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-					
-					
-		          };
-			
-			
-				
-	 int i, j;
-         
-        for(i=0 ;i<f; i++)
-        {
-            for(j=0; j<c; j++)
-            {
-                 mat[i][j]=aux[i][j];
-                
-            }
-        }
-
-		
-
-}
 
 
-void imprimir(int mat[f][c], int u, int v){
+void imprimir(int mat[f][c], int u, int v, int sent){
 	
 	
 	gotoxy(u,v);
-	
+
+	if(sent==1)
+	{
+			
 	for(int i=0; i<f; i++)
 	{
 	
@@ -161,6 +123,34 @@ void imprimir(int mat[f][c], int u, int v){
 		
 	}
 
+	}
+	else if(sent==2)
+	{
+			
+	for(int i=0; i<f; i++)
+	{
+	
+		for(int j=c; j>=0;j--)
+		{
+			if(mat[i][j]==1 )
+			{
+				color(15*16+0);
+				printf("%c", 219);
+			}
+			
+			else  if(mat[i][j]==2)
+				{
+					color(15*16+12);
+						printf("%c", 219);
+				}
+			else
+			  printf(" ");
+		}
+			gotoxy(++u,v); //columna estatica porque sino el muñeco se aplasta
+		
+	}
+
+	}
 }
 /*void fuego( int po, int pe){
 	
@@ -211,7 +201,7 @@ int aux2[5][5]= {{3, 3, 4, 5, 5,},
 }*/
 
 
-void jugar(int mat[f][c], int u, int v)
+void jugar(int mat[f][c], int u, int v, int sent)
 {
 	char tecla;
 	
@@ -232,8 +222,9 @@ void jugar(int mat[f][c], int u, int v)
             v++;
             gotoxy(u, v+1);
             printf(" ");
-            pintar(mat);
-            imprimir(mat, u, v);
+            //pintar(mat);
+            sent=1;
+  
         }
          
         if(tecla== 'a' || tecla=='A')    
@@ -241,8 +232,9 @@ void jugar(int mat[f][c], int u, int v)
             v--;
             gotoxy(u, v-1);
              printf(" ");
-             pintar2(mat);
-             imprimir(mat, u, v);
+             //pintar2(mat);
+             sent=2;
+         
 
         }
          
@@ -251,16 +243,14 @@ void jugar(int mat[f][c], int u, int v)
             u++;
             gotoxy(u+1, v);
             printf(" ");
-            imprimir(mat, u, v);
-        }
+       }
          
         if(tecla== 'w' || tecla=='W')
         {
             u--;
         	gotoxy(u-1, v);
              printf(" ");
-             imprimir(mat, u, v);
-
+            
         }
         /*if( tecla== 'l' || tecla=='L'&& mat[fg][fo]==6)
         {
@@ -269,7 +259,7 @@ void jugar(int mat[f][c], int u, int v)
 
         }*/
         
-        
+         imprimir(mat, u, v, sent);
         Sleep(120);
                 
 
