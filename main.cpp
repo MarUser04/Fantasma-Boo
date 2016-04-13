@@ -13,12 +13,31 @@ struct fantasma
 {
 	int matriz[f][c];
 	int u, v, sent;
+	int bf[7][17]={{0, 0, 1, 1, 1, 0, 0},
+			       {0, 0, 1, 1, 1, 0, 0},
+			       {0, 1, 2, 2, 2, 1, 0},
+			       {0, 1, 2, 2, 2, 1, 0},
+			       {1, 1, 3, 3, 3, 2, 1},
+			       {1, 2, 3, 3, 3, 2, 1},
+			       {0, 1, 3, 3, 3, 2, 1},
+			       {0, 1, 3, 0, 3, 2, 1},
+			       {0, 0, 1, 0, 3, 2, 1},
+			       {0, 0, 1, 3, 3, 2, 1},
+			       {0, 1, 3, 3, 3, 2, 1},
+			       {0, 1, 3, 3, 3, 2, 1},
+			       {1, 2, 3, 3, 3, 2, 1},
+			       {1, 1, 2, 2, 2, 1, 0},
+			       {0, 1, 2, 2, 2, 1, 0},
+			       {0, 0, 1, 1, 1, 0, 0},
+			       {0, 0, 1, 1, 1, 0, 0}
+				  };
 };
 
 void gotoxy(int y,int x);
 void color(int X);
 void pintar(fantasma *boo);
 void imprimir(fantasma *boo);
+//void fuego();
 void jugar(fantasma *boo);
 
 int main(int argc, char** argv) 
@@ -156,6 +175,16 @@ void imprimir(fantasma *boo){
 	}
 	
 }
+/*void fuego()
+{
+	int ff= , fc= ;
+	
+	for(int i=0; i<15; i++)
+	{
+		gotoxy(ff, fc);
+		printf("")
+	}
+}*/
 void jugar(fantasma *boo)
 {
 	char tecla;
@@ -185,12 +214,14 @@ void jugar(fantasma *boo)
          
         if(tecla== 'a' || tecla=='A')    
         {
-            boo->v--;
+        	if(boo->v-1 !=0)
+        	{
+        	boo->v--;
             gotoxy(boo->u, boo->v-1);
              printf(" ");
-             
              boo->sent=2;
          
+			}
 
         }
          
@@ -203,11 +234,25 @@ void jugar(fantasma *boo)
          
         if(tecla== 'w' || tecla=='W')
         {
-            boo->u--;
+        	if(boo->u-1 !=0)
+        	{
+        	boo->u--;
         	gotoxy(boo->u-1, boo->v);
              printf(" ");
-            
+			}
+             
         }
+        if(tecla =='l' || tecla =='L')
+        {
+         	for(int i=0; i<7; i++)
+         	{
+         		printf("\n");
+         		for(int j=0; j<16; j++)
+         		{
+         			printf("%d", boo->bf[i][j]);
+				 }
+			 }
+		}
       
          imprimir(boo);
         Sleep(120);
